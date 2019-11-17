@@ -1,0 +1,62 @@
+#A1025
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+
+struct Student
+	{
+		char No[15];
+		int Score;
+		int LocationNumber;
+		int LocalRank;
+	}stu[30001];
+
+bool cmp(Student A,Student B)
+	{
+		if(A.Score!=B.Score) return A.Score>B.Score;
+		else return strcmp(A.No,B.No)<0;
+	}
+
+int main()
+{
+	int N,K;
+	int num=0;
+	scanf("%d",&N);
+	for(int i=0;i<N;i++)
+	{
+		scanf("%d",&K);
+		for(int j=0;j<K;j++)
+		{
+			scanf("%s %d",stu[num].No,&stu[num].Score);
+			stu[num].LocationNumber=i+1;
+			num++;
+		}
+		sort(stu+num-K,stu+num,cmp);
+		stu[num-K].LocalRank=1;
+		for(int p=num-K+1;p<num;p++)
+		{
+			if(stu[p].Score==stu[p-1].Score)
+			{
+				stu[p].LocalRank=stu[p-1].LocalRank;
+			}
+			else
+			{
+				stu[p].LocalRank=p+1-(num-K);
+			}
+		}
+	}
+	printf("%d\n",num);
+	sort(stu,stu+num,cmp);
+	int r=1;
+	for(int q=0;q<num;q++)
+	{
+		if(q>0&&stu[q].Score!=stu[q-1].Score)
+		{
+			r=q+1;
+		}
+		printf("%s %d %d %d\n",stu[q].No,r,stu[q].LocationNumber,stu[q].LocalRank);
+	}
+	system("pause");
+	return 0;
+}

@@ -1,0 +1,31 @@
+#codeup5901
+#include<cstdio>
+#include<cstdlib>
+#include<cstring>
+using namespace std; 
+
+const int MAX=255;
+
+bool Judge(char str[])
+{
+	int len=strlen(str);
+	for(int i=0;i<len/2;i++)
+	{
+		if(str[i]!=str[len-1-i])
+			return false;
+	}
+	return true;
+}
+
+int main()
+{
+	char str[MAX];
+	while(gets(str))
+	{
+		bool flag=Judge(str);
+		flag?(printf("YES")):(printf("NO"));
+	}
+	system("pause");
+	return 0;
+	
+} 
