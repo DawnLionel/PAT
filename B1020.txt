@@ -1,0 +1,41 @@
+#include<cstdio>
+#include<cstdlib>
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+struct moon{
+	double store;
+	double sell;
+	double price;
+}cake[1010];
+bool cmp(moon a,moon b){
+	return a.price>b.price;
+}
+int main() {
+	int N,D;
+	cin>>N>>D;
+	for(int i=0; i<N; i++) {
+		cin>>cake[i].store;
+	}
+	for(int j=0; j<N; j++) {
+		cin>>cake[j].sell;
+	}
+	for(int k=0; k<N; k++) {
+		cake[k].price=cake[k].sell/cake[k].store;
+	}
+	sort(cake,cake+N,cmp);
+	double ans=0;
+	for(int m=0;m<N;m++){
+		if(cake[m].store<D){
+			ans+=cake[m].sell;
+			D-=cake[m].store;
+		}
+		else{
+			ans+=cake[m].price*D;
+			break;
+		}
+	}
+	printf("%.2f\n",ans);
+	return 0;
+}
